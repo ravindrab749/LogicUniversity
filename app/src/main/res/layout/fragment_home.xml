@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".fragment.HomeFragment">
+
+    <TextView
+        android:layout_marginTop="150dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="56sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:text="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_margin="10dp"
+            android:id="@+id/id_pending"
+            android:text="@string/action_pending"
+            style="@style/btn_style"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <Button
+            android:layout_margin="10dp"
+            android:id="@+id/id_past_orders"
+            android:text="@string/action_past_orders"
+            style="@style/btn_style"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <Button
+            android:layout_margin="10dp"
+            android:id="@+id/id_delegate"
+            android:text="@string/action_delegate"
+            style="@style/btn_style"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

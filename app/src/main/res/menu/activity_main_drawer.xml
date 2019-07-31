@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_pending"
+            android:icon="@drawable/ic_menu_pending"
+            android:title="@string/action_pending" />
+        <item
+            android:id="@+id/nav_past_orders"
+            android:icon="@drawable/ic_menu_past_records"
+            android:title="@string/action_past_orders" />
+        <item
+            android:id="@+id/nav_delegate"
+            android:icon="@drawable/ic_menu_delegate"
+            android:title="@string/action_delegate" />
+
+        <item android:id="@+id/nav_fingerprint"
+            android:icon="@drawable/ic_menu_finger_print"
+            android:title="@string/menu_fingerprint"/>
+
+    </group>
+
+</menu>
