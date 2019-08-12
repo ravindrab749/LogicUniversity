@@ -1,6 +1,5 @@
 package com.nus.logicuniversity.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,81 +8,116 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.adapter.MyOrderedItemRecyclerViewAdapter;
-import com.nus.logicuniversity.adapter.RepPopupAdapter;
-import com.nus.logicuniversity.model.OrderedItem;
+import com.nus.logicuniversity.model.RequisitionDetailResponse;
+import com.nus.logicuniversity.model.RequisitionDetails;
+import com.nus.logicuniversity.retrofit.Api;
+import com.nus.logicuniversity.retrofit.RetrofitClient;
+import com.nus.logicuniversity.utility.Util;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
-public class PendingOrderedItemsFragment extends Fragment implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    private ArrayList<OrderedItem> orderedItems;
+public class PendingOrderedItemsFragment extends Fragment {
+
     private TextView repView;
+    private ArrayList<RequisitionDetails> orderedItems = new ArrayList<>();
+    private RequisitionDetailResponse response;
+
+    public PendingOrderedItemsFragment(RequisitionDetailResponse response) {
+        this.response = response;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        orderedItems = new ArrayList<>();
 
         View view = inflater.inflate(R.layout.fragment_ordereditem_list, container, false);
 
         TextView totView = view.findViewById(R.id.total_view);
         repView = view.findViewById(R.id.tv_rep_name);
-        Button btnRepChange = view.findViewById(R.id.btn_change);
         EditText etComment = view.findViewById(R.id.et_comment);
         Button btnAccept = view.findViewById(R.id.btn_accept);
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                approve();
+            }
+        });
         Button btnReject = view.findViewById(R.id.btn_reject);
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reject();
+            }
+        });
 
-        btnRepChange.setOnClickListener(this);
-
+        orderedItems.addAll(response.getReqDataList());
         RecyclerView recyclerView = view.findViewById(R.id.pending_ordered_item_list);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL), R.drawable.divider);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(new MyOrderedItemRecyclerViewAdapter(getActivity(), orderedItems));
 
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-        showDialog();
-    }
+    private void approve() {
 
-    private void showDialog() {
-        Map<String, String> map1 = new HashMap<>();
-        map1.put("name", "Vicky");
-        map1.put("id", "123");
+        String header = Util.getHeaderValueFromSharedPreferences(getActivity());
+        Util.showProgressBar(getActivity(), true);
 
-        Map<String, String> map2 = new HashMap<>();
-        map2.put("name", "Bunny");
-        map2.put("id", "456");
-
-        final ArrayList<Map<String, String>> list = new ArrayList<>();
-        list.add(map1);
-        list.add(map2);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Select Rep");
-
-        RepPopupAdapter adapter = new RepPopupAdapter(getActivity(), R.layout.popup_rep, list);
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+        Api api = RetrofitClient.getInstance().getApi();
+        api.approveOrder(header, response.getReqId()).enqueue(new Callback<String>() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                repView.setText(list.get(i).get("name"));
-                dialogInterface.dismiss();
+            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                String msg = response.body();
+                if("Success".equalsIgnoreCase(msg)) {
+                    Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frame, new PendingOrdersFragment()).commit();
+                    Util.showProgressBar(getActivity(), false);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                Util.showToast(getActivity(), t.getMessage());
+                Util.showProgressBar(getActivity(), false);
             }
         });
-
-        builder.setCancelable(false);
-        builder.create().show();
-
     }
+
+    private void reject() {
+
+        String header = Util.getHeaderValueFromSharedPreferences(getActivity());
+
+        Util.showProgressBar(getActivity(), true);
+
+        Api api = RetrofitClient.getInstance().getApi();
+        api.rejectOrder(header, response.getReqId()).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                String msg = response.body();
+                if("Success".equalsIgnoreCase(msg)) {
+                    Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frame, new PendingOrdersFragment()).commit();
+                    Util.showProgressBar(getActivity(), false);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                Util.showToast(getActivity(), t.getMessage());
+                Util.showProgressBar(getActivity(), false);
+            }
+        });
+    }
+
 }

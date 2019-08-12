@@ -9,14 +9,32 @@
             android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home" />
         <item
+            android:visible="false"
             android:id="@+id/nav_pending"
             android:icon="@drawable/ic_menu_pending"
             android:title="@string/action_pending" />
         <item
+            android:visible="false"
             android:id="@+id/nav_past_orders"
             android:icon="@drawable/ic_menu_past_records"
             android:title="@string/action_past_orders" />
+<!--        <item
+            android:visible="false"
+            android:id="@+id/nav_pending_dis"
+            android:icon="@drawable/ic_menu_pending"
+            android:title="@string/action_pending_dis" />-->
         <item
+            android:visible="false"
+            android:id="@+id/nav_past_dis"
+            android:icon="@drawable/ic_menu_past_records"
+            android:title="@string/action_past_dis" />
+        <item
+            android:visible="false"
+            android:id="@+id/nav_rep_change"
+            android:icon="@drawable/ic_menu_rep_change"
+            android:title="@string/action_rep_change" />
+        <item
+            android:visible="false"
             android:id="@+id/nav_delegate"
             android:icon="@drawable/ic_menu_delegate"
             android:title="@string/action_delegate" />

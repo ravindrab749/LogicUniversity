@@ -1,10 +1,7 @@
 package com.nus.logicuniversity.fragment;
 
-import android.Manifest;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +10,16 @@ import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.DialogCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.nus.logicuniversity.R;
+import com.nus.logicuniversity.db.DBAdapter;
+import com.nus.logicuniversity.model.User;
 import com.nus.logicuniversity.utility.Util;
+
+import java.util.Objects;
 
 public class FingerprintFragment extends Fragment {
 
@@ -47,14 +44,16 @@ public class FingerprintFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fingerprint, container, false);
-        fpSwitch = (SwitchCompat) view.findViewById(R.id.fp_switch);
+        updateToolbarTitle();
+        fpSwitch = view.findViewById(R.id.fp_switch);
         fpSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                compoundButton.setChecked(b);
-                showDialog();
+                checkFingerPrintAccount(b);
             }
         });
+
+        isUserFingerPrintEnabled();
 
 //        DrawableCompat.setTintList(DrawableCompat.wrap(fpSwitch.getThumbDrawable()), new ColorStateList(states, thumbColors));
 //        DrawableCompat.setTintList(DrawableCompat.wrap(fpSwitch.getTrackDrawable()), new ColorStateList(states, trackColors));
@@ -62,10 +61,41 @@ public class FingerprintFragment extends Fragment {
         return view;
     }
 
-    private void showDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+    private void updateToolbarTitle() {
+        Util.updateTitle(getString(R.string.title_fragment_finger_print), Objects.requireNonNull(getActivity()));
+    }
+
+    private void checkFingerPrintAccount(boolean b) {
+        User user = new DBAdapter(getActivity()).getUserByUsername(Util.getValueFromSharedPreferences("username", getActivity()));
+        if(user == null) {
+            enableFP(false);
+            showDialog(false);
+        } else {
+            if(b) showDialog(true);
+            enableFP(b);
+            updateUserFingerPrint(b);
+        }
+    }
+
+    private void enableFP(boolean enable) {
+        fpSwitch.setChecked(enable);
+    }
+
+    private void updateUserFingerPrint(boolean isEnabled) {
+        DBAdapter adapter = new DBAdapter(getActivity());
+        adapter.updateFingerprint(isEnabled, Util.getValueFromSharedPreferences("username", getActivity()));
+        Util.addToSharedPref(getActivity(), Util.FP_KEY, String.valueOf(isEnabled));
+    }
+
+    private void isUserFingerPrintEnabled() {
+        String val = Util.getValueFromSharedPreferences(Util.FP_KEY, getActivity());
+        enableFP(Boolean.valueOf(val));
+    }
+
+    private void showDialog(boolean success) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         dialogBuilder.setTitle(getString(R.string.title_reminder));
-        dialogBuilder.setMessage(getString(R.string.msg_fingerprint));
+        dialogBuilder.setMessage(getString(success ? R.string.msg_fingerprint : R.string.msg_fingerprint_err));
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(getString(R.string.action_ok), new DialogInterface.OnClickListener() {
             @Override

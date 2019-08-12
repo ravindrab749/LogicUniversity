@@ -1,19 +1,17 @@
 package com.nus.logicuniversity.biometric;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nus.logicuniversity.R;
-
-import androidx.annotation.NonNull;
 
 public class BiometricDialogV23 extends BottomSheetDialog implements View.OnClickListener {
 
@@ -31,7 +29,7 @@ public class BiometricDialogV23 extends BottomSheetDialog implements View.OnClic
         setDialogView();
     }
 
-    public BiometricDialogV23(@NonNull Context context, BiometricCallback biometricCallback) {
+    BiometricDialogV23(@NonNull Context context, BiometricCallback biometricCallback) {
         super(context, R.style.BottomSheetDialogTheme);
         this.context = context.getApplicationContext();
         this.biometricCallback = biometricCallback;
@@ -47,10 +45,11 @@ public class BiometricDialogV23 extends BottomSheetDialog implements View.OnClic
     }
 
     private void setDialogView() {
-        View bottomSheetView = getLayoutInflater().inflate(R.layout.view_bottom_sheet, null);
+        @SuppressLint("InflateParams") View bottomSheetView = getLayoutInflater().inflate(R.layout.view_bottom_sheet, null);
         setContentView(bottomSheetView);
 
         btnCancel = findViewById(R.id.btn_cancel);
+        assert btnCancel != null;
         btnCancel.setOnClickListener(this);
 
         imgLogo = findViewById(R.id.img_logo);
@@ -62,23 +61,23 @@ public class BiometricDialogV23 extends BottomSheetDialog implements View.OnClic
         updateLogo();
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         itemTitle.setText(title);
     }
 
-    public void updateStatus(String status) {
+    void updateStatus(String status) {
         itemStatus.setText(status);
     }
 
-    public void setSubtitle(String subtitle) {
+    void setSubtitle(String subtitle) {
         itemSubtitle.setText(subtitle);
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         itemDescription.setText(description);
     }
 
-    public void setButtonText(String negativeButtonText) {
+    void setButtonText(String negativeButtonText) {
         btnCancel.setText(negativeButtonText);
     }
 

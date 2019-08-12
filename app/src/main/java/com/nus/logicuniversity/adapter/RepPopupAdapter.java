@@ -1,43 +1,40 @@
 package com.nus.logicuniversity.adapter;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.nus.logicuniversity.R;
+import com.nus.logicuniversity.model.Employee;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-public class RepPopupAdapter extends ArrayAdapter<Map<String, String>> {
+public class RepPopupAdapter extends ArrayAdapter<Employee> {
 
-    private ArrayList<Map<String, String>> items;
-    private LayoutInflater inflater = null;
-
-    public RepPopupAdapter(Context context, int resource, ArrayList<Map<String, String>> items) {
+    public RepPopupAdapter(Context context, int resource, ArrayList<Employee> items) {
         super(context, resource, items);
-        this.items = items;
     }
 
     @Override
-    public Map<String, String> getItem(int position) {
+    public Employee getItem(int position) {
         return super.getItem(position);
     }
 
+    @NotNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NotNull ViewGroup parent) {
+
         if(convertView == null) {
-            convertView = super.getView(position, convertView, parent);
+            convertView = super.getView(position, null, parent);
         }
+
         TextView textView = convertView.findViewById(R.id.tv_rep_name);
-        textView.setText(getItem(position).get("name"));
+        textView.setText(Objects.requireNonNull(getItem(position)).getEmpName());
 
         return convertView;
     }

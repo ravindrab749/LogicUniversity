@@ -1,23 +1,35 @@
 package com.nus.logicuniversity.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.biometric.BiometricCallback;
 import com.nus.logicuniversity.biometric.BiometricManager;
 import com.nus.logicuniversity.db.DBAdapter;
+import com.nus.logicuniversity.model.Employee;
+import com.nus.logicuniversity.model.LoginResponse;
+import com.nus.logicuniversity.model.Roles;
 import com.nus.logicuniversity.model.User;
 import com.nus.logicuniversity.retrofit.Api;
 import com.nus.logicuniversity.retrofit.RetrofitClient;
 import com.nus.logicuniversity.utility.Util;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +37,9 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, BiometricCallback {
 
     private BiometricManager biometricManager;
+    private ProgressBar progressBar;
+    private User user;
+    private Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +48,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         initBiometric();
 
-        findViewById(R.id.id_login).setOnClickListener(this);
+        progressBar = findViewById(R.id.progress_bar);
+        loginBtn = findViewById(R.id.id_login);
+        loginBtn.setOnClickListener(this);
 
+    }
+
+    private void showProgressBar(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        loginBtn.setEnabled(!show);
+        loginBtn.setClickable(!show);
     }
 
     @Override
@@ -52,26 +75,119 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         checkForBiometricLogin();
     }
 
+    private boolean isInRole(String role) {
+
+        for(Roles r : Roles.values()) {
+            if(r.name().equalsIgnoreCase(role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    protected void onResume() {
+        reset();
+        super.onResume();
+    }
+
+    private void reset() {
+        EditText unEt = findViewById(R.id.id_username);
+        if(unEt != null) {
+            unEt.setText(null);
+            unEt.clearFocus();
+        }
+        EditText pwEt = findViewById(R.id.id_password);
+        if(pwEt != null) {
+            pwEt.setText(null);
+            pwEt.clearFocus();
+        }
+    }
+
     private void doLogin() {
+
+/*        if(true) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            return;
+        }*/
+
+        EditText unEt = findViewById(R.id.id_username);
+        EditText pwEt = findViewById(R.id.id_password);
+        String username = unEt.getText().toString();
+        String password = pwEt.getText().toString();
+        if(TextUtils.isEmpty(username)) {
+            unEt.setError("Username should not be empty");
+            unEt.requestFocus();
+            return;
+        } else {
+            unEt.setError(null);
+        }
+
+        if(TextUtils.isEmpty(password)) {
+            pwEt.setError("Password should not be empty");
+            pwEt.requestFocus();
+            return;
+        } else {
+            pwEt.setError(null);
+        }
+
+        login(username, password);
+
+    }
+
+    private void login(final String username, final String password){
+        showProgressBar(true);
         Api api = RetrofitClient.getInstance().getApi();
-        api.test().enqueue(new Callback<String>() {
+        api.login(username, password).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.d("Name --- ", response.body());
-                Util.showToast(LoginActivity.this, response.body());
+            public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
+                showProgressBar(false);
+                LoginResponse res = response.body();
+                assert res != null;
+                if(!res.isLogin()) {
+                    Util.showToast(getApplicationContext(), res.getMsg());
+                } else {
+
+                    String headerVal = response.headers().get(Util.AUTH_HEADER);
+                    if(headerVal == null || TextUtils.isEmpty(headerVal)) {
+                        Util.showToast(getApplicationContext(), "Missing authorized data");
+                        return;
+                    }
+
+                    Employee emp = res.getEmp();
+                    if(!isInRole(emp.getEmpRole())) {
+                        Util.showToast(getApplicationContext(), "Un-authorized");
+                        return;
+                    }
+
+                    DBAdapter adapter = new DBAdapter(LoginActivity.this);
+                    User user = adapter.getUser();
+                    boolean isFpEnabled = false;
+                    if(user == null) {
+                        adapter.insertLogin(username, password);
+                    } else if(username.equals(user.getUsername())) {
+                        isFpEnabled = user.isEnrolledFingerprint();
+                    }
+
+                    Util.addUserToSharedPref(LoginActivity.this, emp);
+                    Util.addHeaderToSharedPref(LoginActivity.this, headerVal);
+                    Util.addToSharedPref(LoginActivity.this, Util.FP_KEY, String.valueOf(isFpEnabled));
+
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.e("Exception --- ", t.getMessage());
-                call.cancel();
+            public void onFailure(@NotNull Call<LoginResponse> call, @NotNull Throwable t) {
+                showProgressBar(false);
             }
         });
-//        startActivity(new Intent(this, StockClerkActivity.class));
     }
 
     private void checkForBiometricLogin() {
-        User user = new DBAdapter(this).getUser();
+        user = new DBAdapter(this).getUser();
         if(user != null && user.isEnrolledFingerprint()) {
             biometricManager.authenticate(this);
         }
@@ -114,8 +230,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onAuthenticationSuccessful() {
-        Util.showToast(this, getString(R.string.biometric_success));
-        doLogin();
+//        Util.showToast(this, getString(R.string.biometric_success));
+//        doLogin();
+        login(user.getUsername(), user.getPassword());
     }
 
     @Override

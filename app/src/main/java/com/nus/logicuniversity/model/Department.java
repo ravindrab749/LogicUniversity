@@ -1,77 +1,94 @@
 package com.nus.logicuniversity.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Department {
-    private long DeptId ;
-    private String DeptCode ;
-    private String Name ;
-    private String Contact ;
-    private String Telephone ;
-    private String Fax ;
-    private String Head ;
-    private Employee Representative ;
+
+    @SerializedName("DeptId")
+    private long deptId;
+
+    @SerializedName("DeptCode")
+    private String deptCode;
+
+    @SerializedName("Name")
+    private String name;
+
+    @SerializedName("Contact")
+    private String contact;
+
+    @SerializedName("Telephone")
+    private String telephone;
+
+    @SerializedName("Fax")
+    private String fax;
+
+    @SerializedName("Head")
+    private String head;
+
+    @SerializedName("Representative")
+    private Employee representative;
 
     public long getDeptId() {
-        return DeptId;
+        return deptId;
     }
 
     public void setDeptId(long deptId) {
-        DeptId = deptId;
+        this.deptId = deptId;
     }
 
     public String getDeptCode() {
-        return DeptCode;
+        return deptCode;
     }
 
     public void setDeptCode(String deptCode) {
-        DeptCode = deptCode;
+        this.deptCode = deptCode;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getContact() {
-        return Contact;
+        return contact;
     }
 
     public void setContact(String contact) {
-        Contact = contact;
+        this.contact = contact;
     }
 
     public String getTelephone() {
-        return Telephone;
+        return telephone;
     }
 
     public void setTelephone(String telephone) {
-        Telephone = telephone;
+        this.telephone = telephone;
     }
 
     public String getFax() {
-        return Fax;
+        return fax;
     }
 
     public void setFax(String fax) {
-        Fax = fax;
+        this.fax = fax;
     }
 
     public String getHead() {
-        return Head;
+        return head;
     }
 
     public void setHead(String head) {
-        Head = head;
+        this.head = head;
     }
 
     public Employee getRepresentative() {
-        return Representative;
+        return representative;
     }
 
     public void setRepresentative(Employee representative) {
-        Representative = representative;
+        this.representative = representative;
     }
-//    private CollectionPoint CollectionPoint ;
 }

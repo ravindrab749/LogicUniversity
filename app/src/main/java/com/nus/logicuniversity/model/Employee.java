@@ -1,68 +1,83 @@
 package com.nus.logicuniversity.model;
 
-public class Employee {
-    private long EmpId;
-    private String EmpName;
-    private String EmpRole;
-    private String EmpDisplayRole;
-    private String UserName;
-    private String Password;
-    private Department Department;
+import com.google.gson.annotations.SerializedName;
 
+public class Employee {
+
+    @SerializedName("EmpId")
+    private long empId;
+
+    @SerializedName("EmpName")
+    private String empName;
+
+    @SerializedName("EmpRole")
+    private String empRole;
+
+    @SerializedName("EmpDisplayRole")
+    private String empDisplayRole;
+
+    @SerializedName("UserName")
+    private String userName;
+
+    @SerializedName("Password")
+    private String password;
+
+    @SerializedName("Department")
+    private Department department;
 
     public long getEmpId() {
-        return EmpId;
+        return empId;
     }
 
     public void setEmpId(long empId) {
-        EmpId = empId;
+        this.empId = empId;
     }
 
     public String getEmpName() {
-        return EmpName;
+        return empName;
     }
 
     public void setEmpName(String empName) {
-        EmpName = empName;
+        this.empName = empName;
     }
 
     public String getEmpRole() {
-        return EmpRole;
+        return empRole;
     }
 
     public void setEmpRole(String empRole) {
-        EmpRole = empRole;
+        this.empRole = empRole;
     }
 
     public String getEmpDisplayRole() {
-        return EmpDisplayRole;
+        return empDisplayRole;
     }
 
     public void setEmpDisplayRole(String empDisplayRole) {
-        EmpDisplayRole = empDisplayRole;
+        this.empDisplayRole = empDisplayRole;
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
-    public com.nus.logicuniversity.model.Department getDepartment() {
-        return Department;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartment(com.nus.logicuniversity.model.Department department) {
-        Department = department;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

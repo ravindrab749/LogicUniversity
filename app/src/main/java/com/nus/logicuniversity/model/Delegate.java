@@ -3,40 +3,41 @@ package com.nus.logicuniversity.model;
 import java.sql.Timestamp;
 
 public class Delegate {
-    private Timestamp FromDate;
-    private Timestamp ToDate;
-    private Employee Employee;
-    private Department Department;
+
+    private Timestamp fromDate;
+    private Timestamp toDate;
+    private Employee employee;
+    private Department department;
 
     public Timestamp getFromDate() {
-        return FromDate;
+        return fromDate;
     }
 
     public void setFromDate(Timestamp fromDate) {
-        FromDate = fromDate;
+        this.fromDate = fromDate;
     }
 
     public Timestamp getToDate() {
-        return ToDate;
+        return toDate;
     }
 
     public void setToDate(Timestamp toDate) {
-        ToDate = toDate;
+        this.toDate = toDate;
     }
 
-    public com.nus.logicuniversity.model.Employee getEmployee() {
-        return Employee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployee(com.nus.logicuniversity.model.Employee employee) {
-        Employee = employee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public com.nus.logicuniversity.model.Department getDepartment() {
-        return Department;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartment(com.nus.logicuniversity.model.Department department) {
-        Department = department;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

@@ -1,94 +1,116 @@
 package com.nus.logicuniversity.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Inventory {
-    private long ItemId;
-    private String ItemCode;
-    private String BinNo;
-    private int StockLevel;
-    private int ReorderLevel;
-    private int ReorderQty;
-    private String Category;
-    private String Description;
-    private String UnitOfMeasure;
-    private String ImageUrl;
+
+    @SerializedName("ItemId")
+    private long itemId;
+
+    @SerializedName("ItemCode")
+    private String itemCode;
+
+    @SerializedName("BinNo")
+    private String binNo;
+
+    @SerializedName("StockLevel")
+    private int stockLevel;
+
+    @SerializedName("ReorderLevel")
+    private int reorderLevel;
+
+    @SerializedName("ReorderQty")
+    private int reorderQty;
+
+    @SerializedName("Category")
+    private String category;
+
+    @SerializedName("Description")
+    private String description;
+
+    @SerializedName("UnitOfMeasure")
+    private String unitOfMeasure;
+
+    @SerializedName("ImageUrl")
+    private String imageUrl;
 
     public long getItemId() {
-        return ItemId;
+        return itemId;
     }
 
     public void setItemId(long itemId) {
-        ItemId = itemId;
+        this.itemId = itemId;
     }
 
     public String getItemCode() {
-        return ItemCode;
+        return itemCode;
     }
 
     public void setItemCode(String itemCode) {
-        ItemCode = itemCode;
+        this.itemCode = itemCode;
     }
 
     public String getBinNo() {
-        return BinNo;
+        return binNo;
     }
 
     public void setBinNo(String binNo) {
-        BinNo = binNo;
+        this.binNo = binNo;
     }
 
     public int getStockLevel() {
-        return StockLevel;
+        return stockLevel;
     }
 
     public void setStockLevel(int stockLevel) {
-        StockLevel = stockLevel;
+        this.stockLevel = stockLevel;
     }
 
     public int getReorderLevel() {
-        return ReorderLevel;
+        return reorderLevel;
     }
 
     public void setReorderLevel(int reorderLevel) {
-        ReorderLevel = reorderLevel;
+        this.reorderLevel = reorderLevel;
     }
 
     public int getReorderQty() {
-        return ReorderQty;
+        return reorderQty;
     }
 
     public void setReorderQty(int reorderQty) {
-        ReorderQty = reorderQty;
+        this.reorderQty = reorderQty;
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getUnitOfMeasure() {
-        return UnitOfMeasure;
+        return unitOfMeasure;
     }
 
     public void setUnitOfMeasure(String unitOfMeasure) {
-        UnitOfMeasure = unitOfMeasure;
+        this.unitOfMeasure = unitOfMeasure;
     }
 
     public String getImageUrl() {
-        return ImageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        ImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
 }

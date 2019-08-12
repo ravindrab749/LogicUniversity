@@ -4,6 +4,8 @@ public class User {
 
     private String username;
     private String password;
+    private String role;
+    private String displayRole;
     private boolean enrolledFingerprint;
 
     public String getUsername() {
@@ -28,5 +30,21 @@ public class User {
 
     public void setEnrolledFingerprint(boolean enrolledFingerprint) {
         this.enrolledFingerprint = enrolledFingerprint;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getDisplayRole() {
+        return displayRole;
+    }
+
+    public void setDisplayRole(String displayRole) {
+        this.displayRole = displayRole;
     }
 }

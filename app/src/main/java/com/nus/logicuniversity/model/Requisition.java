@@ -1,69 +1,85 @@
 package com.nus.logicuniversity.model;
 
-import java.sql.Timestamp;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 
 public class Requisition {
-    private long ReqId;
-    private String ReqCode;
-    private Timestamp DateOfRequest;
-    private String Status;
-    private Timestamp PickUpDate;
-    private String ApprovedBy;
-    private Employee Employee;
+
+    @SerializedName("ReqId")
+    private long reqId;
+
+    @SerializedName("ReqCode")
+    private String reqCode;
+
+    @SerializedName("DateOfRequest")
+    private Date dateOfRequest;
+
+    @SerializedName("Status")
+    private String status;
+
+    @SerializedName("PickUpDate")
+    private Date pickUpDate;
+
+    @SerializedName("ApprovedBy")
+    private String approvedBy;
+
+    @SerializedName("Employee")
+    private Employee employee;
 
     public long getReqId() {
-        return ReqId;
+        return reqId;
     }
 
     public void setReqId(long reqId) {
-        ReqId = reqId;
+        this.reqId = reqId;
     }
 
     public String getReqCode() {
-        return ReqCode;
+        return reqCode;
     }
 
     public void setReqCode(String reqCode) {
-        ReqCode = reqCode;
+        this.reqCode = reqCode;
     }
 
-    public Timestamp getDateOfRequest() {
-        return DateOfRequest;
+    public Date getDateOfRequest() {
+        return dateOfRequest;
     }
 
-    public void setDateOfRequest(Timestamp dateOfRequest) {
-        DateOfRequest = dateOfRequest;
+    public void setDateOfRequest(Date dateOfRequest) {
+        this.dateOfRequest = dateOfRequest;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
-    public Timestamp getPickUpDate() {
-        return PickUpDate;
+    public Date getPickUpDate() {
+        return pickUpDate;
     }
 
-    public void setPickUpDate(Timestamp pickUpDate) {
-        PickUpDate = pickUpDate;
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
     public String getApprovedBy() {
-        return ApprovedBy;
+        return approvedBy;
     }
 
     public void setApprovedBy(String approvedBy) {
-        ApprovedBy = approvedBy;
+        this.approvedBy = approvedBy;
     }
 
-    public com.nus.logicuniversity.model.Employee getEmployee() {
-        return Employee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployee(com.nus.logicuniversity.model.Employee employee) {
-        Employee = employee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

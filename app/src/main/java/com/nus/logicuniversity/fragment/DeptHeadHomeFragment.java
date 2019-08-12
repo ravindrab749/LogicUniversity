@@ -12,16 +12,20 @@ import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.listener.OnMenuButtonSelectedListener;
 import com.nus.logicuniversity.utility.Util;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
+public class DeptHeadHomeFragment extends Fragment implements View.OnClickListener {
 
     private final OnMenuButtonSelectedListener mListener;
 
-    public HomeFragment(OnMenuButtonSelectedListener listener) {
+    public DeptHeadHomeFragment(OnMenuButtonSelectedListener listener) {
         mListener = listener;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         updateToolbarTitle();
         // Inflate the layout for this fragment
@@ -36,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void updateToolbarTitle() {
-        Util.updateTitle(getString(R.string.title_activity_home), getActivity());
+        Util.updateTitle(getString(R.string.title_activity_home), Objects.requireNonNull(getActivity()));
     }
 
     @Override

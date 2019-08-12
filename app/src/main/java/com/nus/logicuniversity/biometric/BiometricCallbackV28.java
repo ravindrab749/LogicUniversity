@@ -9,7 +9,7 @@ import android.os.Build;
 public class BiometricCallbackV28 extends BiometricPrompt.AuthenticationCallback {
 
     private BiometricCallback biometricCallback;
-    public BiometricCallbackV28(BiometricCallback biometricCallback) {
+    BiometricCallbackV28(BiometricCallback biometricCallback) {
         this.biometricCallback = biometricCallback;
     }
 

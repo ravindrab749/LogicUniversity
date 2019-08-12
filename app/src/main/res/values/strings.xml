@@ -9,8 +9,17 @@
 
     <string name="title_activity_home">Home</string>
     <string name="title_activity_pending">Pending</string>
+    <string name="title_fragment_delegate">Delegate</string>
+    <string name="title_fragment_pending_dis">Pending Acknowledgements</string>
+    <string name="title_fragment_past_dis">Past Acknowledgements</string>
+    <string name="title_fragment_change_rep">Representative</string>
+    <string name="title_fragment_finger_print">Finger Print</string>
+    <string name="title_fragment_past_orders">Past Orders</string>
     <string name="action_pending">Pending</string>
     <string name="action_past_orders">Past Orders</string>
+    <string name="action_pending_dis">Pending Acknowledgements</string>
+    <string name="action_past_dis">Past Acknowledgements</string>
+    <string name="action_rep_change">Change Representative</string>
     <string name="action_delegate">Delegate</string>
 
     <string name="title_role">Department Head</string>
@@ -25,11 +34,14 @@
     <string name="action_logout">Logout</string>
 
     <string name="menu_home">Home</string>
+    <string name="title_select_rep">Select Representative</string>
+    <string name="title_select_emp">Select Employee</string>
     <string name="title_menu_security">Security</string>
     <string name="menu_fingerprint">Fingerprint</string>
     <string name="title_fingerprint">Fingerprint Login</string>
     <string name="title_sub_fingerprint">Easy login with fingerprint</string>
 
+    <string name="title_frag_disbursement">Disbursement</string>
     <string name="title_order_id">Order ID %1$d</string>
     <string name="text_total">Total: $ %1$d</string>
     <string name="label_rep">Representative :</string>
@@ -43,14 +55,17 @@
     <string name="label_unit_price">UNIT PRICE</string>
     <string name="label_price">PRICE</string>
     <string name="text_price">$ %1$d</string>
+    <string name="text_for_number">%1$d</string>
 
     <string name="biometric_failed">Fingerprint not recognized</string>
 
     <string name="title_reminder">Reminder</string>
     <string name="msg_fingerprint">Fingerprint login will now be used as an alternative to your password.</string>
+    <string name="msg_fingerprint_err">Fingerprint login can be allowed for only one account in this device.</string>
     <string name="action_ok">OK</string>
     <string name="msg_fingerprint_login">Place your finger to continue</string>
-    <string name="action_cancel">CANCEL</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_ack">Acknowledge</string>
 
     <string name="biometric_error_sdk_not_supported">Sdk version not supported</string>
     <string name="biometric_error_hardware_not_supported">Device does not support biometric authentication</string>
@@ -64,6 +79,7 @@
     <string name="label_to_date">To </string>
     <string name="label_emp">Employee </string>
 
+    <string name="img_content_desc"> </string>
     <string name="text_empty_records">No records found</string>
     <string name="text_slash_sep">%1$d / %2$d</string>
     <string name="text_colon_sep">%1$s : %2$d</string>
@@ -71,6 +87,7 @@
     <string name="title_dept">Department</string>
     <string name="title_qty">Quantity</string>
     <string name="title_required">Required</string>
+    <string name="title_needed">Needed</string>
     <string name="title_actual">Actual</string>
     <string name="action_confirm">Confirm</string>
 

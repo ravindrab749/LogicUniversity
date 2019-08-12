@@ -1,32 +1,39 @@
 package com.nus.logicuniversity.model;
 
-public class RequisitionDetails {
-    private int Quantity;
-    private Requisition Requisition;
-    private Inventory Item;
+import com.google.gson.annotations.SerializedName;
 
+public class RequisitionDetails {
+
+    @SerializedName("Quantity")
+    private int quantity;
+
+    @SerializedName("Requisition")
+    private Requisition requisition;
+
+    @SerializedName("Item")
+    private Inventory item;
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
-    public com.nus.logicuniversity.model.Requisition getRequisition() {
-        return Requisition;
+    public Requisition getRequisition() {
+        return requisition;
     }
 
-    public void setRequisition(com.nus.logicuniversity.model.Requisition requisition) {
-        Requisition = requisition;
+    public void setRequisition(Requisition requisition) {
+        this.requisition = requisition;
     }
 
     public Inventory getItem() {
-        return Item;
+        return item;
     }
 
     public void setItem(Inventory item) {
-        Item = item;
+        this.item = item;
     }
 }
