@@ -47,12 +47,10 @@ public class PendingOrdersFragment extends Fragment implements OnListFragmentInt
 
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyOrderRecyclerViewAdapter(getActivity(), orders, true, this));
-        }
+        recyclerView = view.findViewById(R.id.rv_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(new MyOrderRecyclerViewAdapter(getActivity(), orders, true, this));
+
         getPendingOrders();
         return view;
     }

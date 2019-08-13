@@ -19,11 +19,15 @@ public class DBAdapter {
     }
 
     public boolean insertLogin(String username, String password) {
+        return insertLogin(username, password, false);
+    }
+
+    public boolean insertLogin(String username, String password, boolean isFingerprint) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.LOGIN_KEY_USERNAME, username);
         values.put(DBHelper.LOGIN_KEY_PASSWORD, password);
-        values.put(DBHelper.LOGIN_KEY_FINGERPRINT, 0);
+        values.put(DBHelper.LOGIN_KEY_FINGERPRINT, isFingerprint ? 1 : 0);
         long row = db.insert(DBHelper.TABLE_NAME_LOGIN, null, values);
         return (row > 0);
     }

@@ -47,12 +47,9 @@ public class PendingDisbursementFragment extends Fragment implements OnCallbackL
         emptyView = view.findViewById(R.id.tv_empty);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyDisbursementRecyclerViewAdapter(disbursements, true,this));
-        }
+        recyclerView = view.findViewById(R.id.rv_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(new MyDisbursementRecyclerViewAdapter(disbursements, true,this));
 
         getAllDisbursements();
         return view;

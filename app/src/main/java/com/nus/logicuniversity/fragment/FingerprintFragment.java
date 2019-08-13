@@ -3,6 +3,7 @@ package com.nus.logicuniversity.fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class FingerprintFragment extends Fragment {
             Color.MAGENTA
     };
 
+    private boolean isAutoCheck = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +52,9 @@ public class FingerprintFragment extends Fragment {
         fpSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                checkFingerPrintAccount(b);
+                if(!isAutoCheck)
+                    checkFingerPrintAccount(b);
+                else isAutoCheck = false;
             }
         });
 
@@ -66,15 +71,30 @@ public class FingerprintFragment extends Fragment {
     }
 
     private void checkFingerPrintAccount(boolean b) {
-        User user = new DBAdapter(getActivity()).getUserByUsername(Util.getValueFromSharedPreferences("username", getActivity()));
+        String username = Util.getValueFromSharedPreferences("username", getActivity());
+        User user = new DBAdapter(getActivity()).getUserByUsername(username);
         if(user == null) {
-            enableFP(false);
-            showDialog(false);
+            user = new DBAdapter(getActivity()).getUser();
+            if(user.isEnrolledFingerprint()) {
+                enableFP(false);
+                showDialog(false);
+            } else {
+                deleteAndInsertUser(username);
+                if(b) showDialog(true);
+                enableFP(b);
+            }
         } else {
             if(b) showDialog(true);
             enableFP(b);
             updateUserFingerPrint(b);
         }
+    }
+
+    private void deleteAndInsertUser(String username) {
+        String password = Util.getValueFromSharedPreferences("password", getActivity());
+        DBAdapter adapter = new DBAdapter(getActivity());
+        adapter.deleteAll();
+        adapter.insertLogin(username, password, true);
     }
 
     private void enableFP(boolean enable) {
@@ -89,7 +109,9 @@ public class FingerprintFragment extends Fragment {
 
     private void isUserFingerPrintEnabled() {
         String val = Util.getValueFromSharedPreferences(Util.FP_KEY, getActivity());
-        enableFP(Boolean.valueOf(val));
+        boolean isEnabled = Boolean.valueOf(val);
+        isAutoCheck = isEnabled;
+        enableFP(isEnabled);
     }
 
     private void showDialog(boolean success) {

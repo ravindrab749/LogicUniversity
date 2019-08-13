@@ -3,7 +3,9 @@ package com.nus.logicuniversity.fragment;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,6 +217,22 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
             actView.setInputType(InputType.TYPE_CLASS_NUMBER);
             actView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
             actView.setTag(dept);
+
+            actView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    actView.setText(String.format(Locale.getDefault(), "%d", Math.abs(Integer.parseInt(charSequence.toString()))));
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                }
+            });
 
             qtyEts[i++] = actView;
             linearLayout.addView(actView);
