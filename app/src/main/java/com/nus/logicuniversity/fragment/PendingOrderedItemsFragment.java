@@ -44,7 +44,13 @@ public class PendingOrderedItemsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_ordereditem_list, container, false);
+        initView(view);
 
+        return view;
+    }
+
+    private void initView(View view) {
+        updateToolbarTitle();
         TextView totView = view.findViewById(R.id.total_view);
         repView = view.findViewById(R.id.tv_rep_name);
         EditText etComment = view.findViewById(R.id.et_comment);
@@ -67,8 +73,10 @@ public class PendingOrderedItemsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.pending_ordered_item_list);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(new MyOrderedItemRecyclerViewAdapter(getActivity(), orderedItems));
+    }
 
-        return view;
+    private void updateToolbarTitle() {
+        Util.updateTitle(getString(R.string.title_fragment_pending_order_items), Objects.requireNonNull(getActivity()));
     }
 
     private void approve() {

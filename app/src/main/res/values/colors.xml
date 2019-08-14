@@ -4,12 +4,26 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>-->
 
-    <color name="colorPrimary">#237A20</color>
-    <color name="colorPrimaryDark">#006400</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorLoginButton">#08AE9E</color>
-    <color name="white">#FFFFFF</color>
+<!--    <color name="colorPrimary">#237A20</color>
+    <color name="colorPrimaryDark">#006400</color>-->
+<!--    <color name="colorPrimary">#20267a</color>
+    <color name="colorPrimaryDark">#207a74</color>-->
+    <color name="colorPrimary">#08AE9E</color>
+    <color name="colorPrimaryDark">#067d72</color>
 
+    <color name="colorAccent">#D81B60</color>
+
+<!--    <color name="colorLoginButton">#08AE9E</color>-->
+    <color name="colorLoginButton">@color/colorPrimary</color>
+
+    <color name="nav_head_start_color">#4DB6AC</color>
+    <color name="nav_head_center_color">#009688</color>
+    <color name="nav_head_end_color">#00695C</color>
+<!--    <color name="nav_head_start_color">#6593F5</color>
+    <color name="nav_head_center_color">@color/colorPrimary</color>
+    <color name="nav_head_end_color">@color/colorPrimaryDark</color>-->
+
+    <color name="white">#FFFFFF</color>
     <color name="colorLightGray">#D3D3D3</color>
     <color name="colorPeach">#F8A055</color>
     <color name="colorRed">#FF5F70</color>

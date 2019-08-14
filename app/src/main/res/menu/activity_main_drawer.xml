@@ -18,11 +18,11 @@
             android:id="@+id/nav_past_orders"
             android:icon="@drawable/ic_menu_past_records"
             android:title="@string/action_past_orders" />
-<!--        <item
+        <item
             android:visible="false"
-            android:id="@+id/nav_pending_dis"
-            android:icon="@drawable/ic_menu_pending"
-            android:title="@string/action_pending_dis" />-->
+            android:id="@+id/nav_inventory_adj"
+            android:icon="@drawable/ic_menu_inv_adj"
+            android:title="@string/action_inventory_adj" />
         <item
             android:visible="false"
             android:id="@+id/nav_past_dis"

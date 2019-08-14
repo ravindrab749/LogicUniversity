@@ -47,6 +47,11 @@ public class FingerprintFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fingerprint, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
         updateToolbarTitle();
         fpSwitch = view.findViewById(R.id.fp_switch);
         fpSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -62,8 +67,6 @@ public class FingerprintFragment extends Fragment {
 
 //        DrawableCompat.setTintList(DrawableCompat.wrap(fpSwitch.getThumbDrawable()), new ColorStateList(states, thumbColors));
 //        DrawableCompat.setTintList(DrawableCompat.wrap(fpSwitch.getTrackDrawable()), new ColorStateList(states, trackColors));
-
-        return view;
     }
 
     private void updateToolbarTitle() {

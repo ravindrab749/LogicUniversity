@@ -34,23 +34,29 @@ public class PastDisbursementFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView emptyView;
 
+    public PastDisbursementFragment() {
+        disbursements = new ArrayList<>();
+    }
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        updateToolbarTitle();
-        disbursements = new ArrayList<>();
-
         View view = inflater.inflate(R.layout.fragment_disbursement_list, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        updateToolbarTitle();
         emptyView = view.findViewById(R.id.tv_empty);
 
         // Set the adapter
         recyclerView = view.findViewById(R.id.rv_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new MyDisbursementRecyclerViewAdapter(disbursements, false,null));
+        recyclerView.setAdapter(new MyDisbursementRecyclerViewAdapter(disbursements, false,null, null));
 
         getAllDisbursements();
-        return view;
     }
 
     private void updateToolbarTitle() {

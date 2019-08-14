@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.fragment.DelegateFragment;
+import com.nus.logicuniversity.fragment.InventoryFragment;
 import com.nus.logicuniversity.fragment.PastDisbursementFragment;
 import com.nus.logicuniversity.fragment.PendingDisbursementFragment;
 import com.nus.logicuniversity.fragment.FingerprintFragment;
@@ -56,6 +57,13 @@ public class MainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
+        if(savedInstanceState == null)
+            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_home));
+
+    }
+
+    private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,8 +83,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         setNamesInNav();
-        if(savedInstanceState == null)
-            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_home));
     }
 
     public void showProgressBar(boolean show) {
@@ -123,6 +129,10 @@ public class MainActivity extends AppCompatActivity
         replaceFragment(new RepresentativeFragment());
     }
 
+    private void goToInventoryAdjFragment() {
+        replaceFragment(new InventoryFragment());
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void goToDelegateFragment() {
         replaceFragment(new DelegateFragment());
@@ -144,6 +154,7 @@ public class MainActivity extends AppCompatActivity
                 goToHomeFragment();
                 break;
             case STORE_CLERK:
+                showStockClerkMenus();
                 goToStockClerkHomeFragment();
                 break;
             case REPRESENTATIVE:
@@ -176,7 +187,6 @@ public class MainActivity extends AppCompatActivity
                     }
                 }, 2000);
             }
-
         }
     }
 
@@ -224,6 +234,8 @@ public class MainActivity extends AppCompatActivity
             goToRepChangeFragment();
         } else if(id == R.id.nav_past_dis) {
             goToPastDisbursementsFragment();
+        } else if(id == R.id.nav_inventory_adj) {
+            goToInventoryAdjFragment();
         }
 
         item.setChecked(true);
@@ -242,6 +254,10 @@ public class MainActivity extends AppCompatActivity
 
     private void showRepNavMenus() {
         navigationView.getMenu().findItem(R.id.nav_past_dis).setVisible(true);
+    }
+
+    private void showStockClerkMenus() {
+        navigationView.getMenu().findItem(R.id.nav_inventory_adj).setVisible(true);
     }
 
     @TargetApi(Build.VERSION_CODES.N)

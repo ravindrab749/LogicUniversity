@@ -1,11 +1,13 @@
 package com.nus.logicuniversity.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.nus.logicuniversity.R;
-import com.nus.logicuniversity.activity.MainActivity;
 import com.nus.logicuniversity.adapter.RepPopupAdapter;
 import com.nus.logicuniversity.model.Delegate;
 import com.nus.logicuniversity.model.Employee;
@@ -50,12 +51,19 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
     private EditText etToDate;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_delegate, container, false);
+        initView(view);
+        return view;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void initView(View view) {
         updateToolbarTitle();
         getEmployees();
-        View view = inflater.inflate(R.layout.fragment_delegate, container, false);
         etFromDate = view.findViewById(R.id.et_from_date);
         etFromDate.setKeyListener(null);
         etToDate = view.findViewById(R.id.et_to_date);
@@ -104,15 +112,22 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
         });
         empEt = view.findViewById(R.id.et_emp_name);
         empEt.setKeyListener(null);
-        empEt.setOnClickListener(new View.OnClickListener() {
+
+        empEt.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                showDialog();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    return false;
+                } else if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    showDialog();
+                    return true;
+                }
+                return false;
             }
         });
+
         Button delegateBtn = view.findViewById(R.id.btn_delegate);
         delegateBtn.setOnClickListener(this);
-        return view;
     }
 
     private void updateToolbarTitle() {
@@ -217,7 +232,6 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-//        builder.setCancelable(false);
         builder.create().show();
 
     }

@@ -27,6 +27,7 @@ public class MyRetrievalFormItemRecyclerViewAdapter extends RecyclerView.Adapter
     private FragmentActivity mActivity;
     private OnRetrievalFormListFragmentListener mListener;
     private OnCallbackListener<RetrievalForm> nListener;
+    private boolean isOld;
 
     public MyRetrievalFormItemRecyclerViewAdapter(FragmentActivity activity, ArrayList<RetrievalForm> retrievalForms, OnRetrievalFormListFragmentListener listener, OnCallbackListener<RetrievalForm> listener2) {
         mValues = retrievalForms;

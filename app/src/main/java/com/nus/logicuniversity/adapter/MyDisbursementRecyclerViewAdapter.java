@@ -10,22 +10,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.listener.OnCallbackListener;
+import com.nus.logicuniversity.listener.OnViewCallbackListener;
 import com.nus.logicuniversity.model.DisbursementItem;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MyDisbursementRecyclerViewAdapter extends RecyclerView.Adapter<MyDisbursementRecyclerViewAdapter.ViewHolder> {
 
     private final ArrayList<DisbursementItem> mValues;
     private OnCallbackListener<DisbursementItem> mListener;
+    private OnViewCallbackListener mViewListener;
     private boolean isPending;
+    private final SimpleDateFormat sdf;
 
-    public MyDisbursementRecyclerViewAdapter(ArrayList<DisbursementItem> items, boolean isPending, OnCallbackListener<DisbursementItem> listener) {
+    public MyDisbursementRecyclerViewAdapter(ArrayList<DisbursementItem> items, boolean isPending, OnCallbackListener<DisbursementItem> listener, OnViewCallbackListener viewListener) {
         mValues = items;
         mListener = listener;
+        mViewListener = viewListener;
         this.isPending = isPending;
+        sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     }
 
     @NotNull
@@ -45,7 +52,7 @@ public class MyDisbursementRecyclerViewAdapter extends RecyclerView.Adapter<MyDi
         final DisbursementItem item = getItem(position);
         holder.mDeptView.setText(item.getDepartment().getName());
         holder.mCPointView.setText(item.getCollectionPoint().getName());
-        holder.mDateView.setText(item.getDate().toString());
+        holder.mDateView.setText(sdf.format(item.getDate()));
 
         if(isPending) {
             holder.mAckButton.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +60,14 @@ public class MyDisbursementRecyclerViewAdapter extends RecyclerView.Adapter<MyDi
                 public void onClick(View v) {
                     if (null != mListener) {
                         mListener.onCallback(item, position);
+                    }
+                }
+            });
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mViewListener != null) {
+                        mViewListener.onViewCallback(item, position, holder.mView);
                     }
                 }
             });
@@ -69,9 +84,11 @@ public class MyDisbursementRecyclerViewAdapter extends RecyclerView.Adapter<MyDi
         private final TextView mCPointView;
         private final TextView mDateView;
         private final Button mAckButton;
+        private final View mView;
 
         private ViewHolder(View view) {
             super(view);
+            mView = view;
             mDeptView = view.findViewById(R.id.dept_name);
             mCPointView = view.findViewById(R.id.collection_point);
             mDateView = view.findViewById(R.id.dis_date);

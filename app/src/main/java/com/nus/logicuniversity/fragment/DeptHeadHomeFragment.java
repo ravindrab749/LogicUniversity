@@ -27,16 +27,20 @@ public class DeptHeadHomeFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        updateToolbarTitle();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        updateToolbarTitle();
         Button pendingBtn = view.findViewById(R.id.id_pending);
         Button pastRecBtn = view.findViewById(R.id.id_past_orders);
         Button delegateBtn = view.findViewById(R.id.id_delegate);
         pendingBtn.setOnClickListener(this);
         pastRecBtn.setOnClickListener(this);
         delegateBtn.setOnClickListener(this);
-        return view;
     }
 
     private void updateToolbarTitle() {

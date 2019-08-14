@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="5dp"
+    android:elevation="2dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="100dp">
 
     <RelativeLayout
         android:layout_margin="10dp"
-        android:minHeight="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,6 +47,7 @@
             android:textAppearance="?attr/textAppearanceListItemSecondary" />
 
         <ImageView
+            android:contentDescription="@string/img_content_desc"
             android:id="@+id/id_app_rej"
             android:padding="10dp"
             android:visibility="gone"

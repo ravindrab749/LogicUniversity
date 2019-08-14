@@ -37,12 +37,20 @@ public class PendingOrdersFragment extends Fragment implements OnListFragmentInt
     private RecyclerView recyclerView;
     private TextView emptyView;
 
+    public PendingOrdersFragment() {
+        orders = new ArrayList<>();
+    }
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        updateToolbarTitle();
-        orders = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_order_list, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        updateToolbarTitle();
         emptyView = view.findViewById(R.id.tv_empty);
 
 
@@ -52,7 +60,6 @@ public class PendingOrdersFragment extends Fragment implements OnListFragmentInt
         recyclerView.setAdapter(new MyOrderRecyclerViewAdapter(getActivity(), orders, true, this));
 
         getPendingOrders();
-        return view;
     }
 
     private void updateToolbarTitle() {

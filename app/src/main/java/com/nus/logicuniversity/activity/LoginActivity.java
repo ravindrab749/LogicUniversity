@@ -46,16 +46,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        initView();
+
+    }
+
+    private  void initView() {
+
         initBiometric();
 
         progressBar = findViewById(R.id.progress_bar);
         loginBtn = findViewById(R.id.id_login);
         loginBtn.setOnClickListener(this);
-
     }
 
     private void showProgressBar(boolean show) {
-        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
         loginBtn.setEnabled(!show);
         loginBtn.setClickable(!show);
     }
@@ -142,7 +147,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         api.login(username, password).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
+
                 showProgressBar(false);
+
                 LoginResponse res = response.body();
                 assert res != null;
                 if(!res.isLogin()) {

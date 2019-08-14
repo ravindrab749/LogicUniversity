@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_empty"-->
+            <!--android:gravity="center"-->
+            <!--android:visibility="gone"-->
+            <!--android:text="@string/text_empty_records"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/parent_lin_lay"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnGenStockAdj"-->
+            <!--android:background="@color/colorLoginButton"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:text="@string/action_stock_adj"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--&lt;!&ndash;    <androidx.recyclerview.widget.RecyclerView-->
+                <!--android:id="@+id/rv_list"-->
+                <!--android:name="com.nus.logicuniversity.fragment.InventoryFragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:layoutManager="LinearLayoutManager"-->
+                <!--tools:context=".fragment.InventoryFragment"-->
+                <!--tools:listitem="@layout/fragment_inventory" />&ndash;&gt;-->
+
+    <!--</LinearLayout>-->
+
+
+<!--</ScrollView>-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="@string/text_empty_records"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_above="@id/btnGenStockAdj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/parent_lin_lay"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnGenStockAdj"
+        android:background="@color/colorLoginButton"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:text="@string/action_stock_adj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

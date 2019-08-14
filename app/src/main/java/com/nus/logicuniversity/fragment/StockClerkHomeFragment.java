@@ -3,9 +3,6 @@ package com.nus.logicuniversity.fragment;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +33,6 @@ import com.nus.logicuniversity.utility.Util;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -51,12 +47,20 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
     private Button generateBtn;
     private TextView emptyView;
 
+    public StockClerkHomeFragment() {
+        retrievalForms = new ArrayList<>();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Objects.requireNonNull(getActivity()).setTitle(getString(R.string.title_frag_disbursement));
-        retrievalForms = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_sc_home, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        updateToolbarTitle();
         emptyView = view.findViewById(R.id.tv_empty);
         recyclerView = view.findViewById(R.id.rv_retrieval_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -65,7 +69,10 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
         generateBtn.setOnClickListener(this);
         showGenerateButton(false);
         getRetrievalForms();
-        return view;
+    }
+
+    private void updateToolbarTitle() {
+        Util.updateTitle(getString(R.string.title_frag_disbursement), Objects.requireNonNull(getActivity()));
     }
 
     @Override
@@ -73,7 +80,16 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         @SuppressLint("InflateParams") View view = getLayoutInflater().inflate(R.layout.popup_stock_info, null);
         LinearLayout linearLayout = view.findViewById(R.id.lin_lay_info);
-        prepareInfoPopupView(form.getDeptNeeds(), linearLayout);
+
+        for(DeptNeeded dept : form.getDeptNeeds()) {
+            @SuppressLint("InflateParams") View subView = getLayoutInflater().inflate(R.layout.popup_dd_item, null);
+            TextView descView = subView.findViewById(R.id.tv_item_desc);
+            TextView qtyView = subView.findViewById(R.id.tv_item_qty);
+            descView.setText(dept.getDeptCode());
+            qtyView.setText(getString(R.string.text_for_number, dept.getDeptActual()));
+            linearLayout.addView(subView);
+        }
+
         dialogBuilder.setView(view);
         dialogBuilder.setTitle(form.getDescription());
         dialogBuilder.setCancelable(false);
@@ -95,8 +111,6 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
     public void onClick(View view) {
 
         enableGenBtn(false);
-
-//        boolean isLow = false;
 
         ArrayList<DisbursementDetailItem> items = new ArrayList<>();
         for(RetrievalForm form : retrievalForms) {
@@ -123,6 +137,7 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
 
         LinearLayout linearLayout = view.findViewById(R.id.lin_lay_stock_items_body);
         prepareView(linearLayout, retrievalForm);
+
         final Button confirmBtn = view.findViewById(R.id.btn_confirm);
         confirmBtn.setVisibility(View.GONE);
 
@@ -197,81 +212,27 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
         int i = 0;
 
         for(DeptNeeded dept : retrievalForm.getDeptNeeds()) {
-            LinearLayout linearLayout = new LinearLayout(getActivity());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            linearLayout.setLayoutParams(params);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView deptView = new TextView(getActivity());
+            @SuppressLint("InflateParams") View subView = getLayoutInflater().inflate(R.layout.popup_edit_form_dyn, null);
+
+            TextView deptView = subView.findViewById(R.id.tv_dept_code);
             deptView.setText(dept.getDeptCode());
-            deptView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-            linearLayout.addView(deptView);
 
-            TextView needView = new TextView(getActivity());
+            TextView needView = subView.findViewById(R.id.tv_stock_need);
             needView.setText(getString(R.string.text_for_number, dept.getDeptNeeded()));
-            needView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-            linearLayout.addView(needView);
 
-            final EditText actView = new EditText(getActivity());
+            final EditText actView = subView.findViewById(R.id.tv_stock_actual);
             actView.setText(getString(R.string.text_for_number, dept.getDeptActual()));
-            actView.setInputType(InputType.TYPE_CLASS_NUMBER);
-            actView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
             actView.setTag(dept);
 
-            actView.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    actView.setText(String.format(Locale.getDefault(), "%d", Math.abs(Integer.parseInt(charSequence.toString()))));
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                }
-            });
-
             qtyEts[i++] = actView;
-            linearLayout.addView(actView);
 
-            parent.addView(linearLayout);
-        }
-    }
+            parent.addView(subView);
 
-    private void prepareInfoPopupView(ArrayList<DeptNeeded> deptNeeds, View view) {
-
-//        LinearLayout parent = view.findViewById(R.id.lin_lay_stock_info);
-
-        LinearLayout parent = (LinearLayout) view;
-
-        for(DeptNeeded dept : deptNeeds) {
-            LinearLayout linearLayout = new LinearLayout(getActivity());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            linearLayout.setLayoutParams(params);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            TextView deptView = new TextView(getActivity());
-            deptView.setText(dept.getDeptCode());
-            deptView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-            linearLayout.addView(deptView);
-
-            TextView actView = new TextView(getActivity());
-            actView.setText(String.format(Locale.getDefault(), "%d", dept.getDeptActual()));
-            actView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-            linearLayout.addView(actView);
-
-            parent.addView(linearLayout);
         }
     }
 
     private void getRetrievalForms() {
-/*        if(true) {
-            dummyData();
-            return;
-        }*/
 
         String header = Util.getHeaderValueFromSharedPreferences(getActivity());
         Util.showProgressBar(getActivity(), true);
@@ -298,50 +259,10 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
         });
     }
 
-/*    private void dummyData() {
-        RetrievalForm form1 = new RetrievalForm();
-        form1.setDescription("Clip Big");
-        form1.setItemId(1);
-        form1.setTotalNeeded(10);
-        form1.setTotalRetrieved(10);
-        ArrayList<DeptNeeded> depts = new ArrayList<>();
-
-        DeptNeeded dept1 = new DeptNeeded();
-        dept1.setDeptId(1);
-        dept1.setDeptCode("REGR");
-//            dept1.setDeptActual(5);
-        dept1.setDeptNeeded(5);
-        depts.add(dept1);
-
-        DeptNeeded dept2 = new DeptNeeded();
-        dept2.setDeptId(3);
-        dept2.setDeptCode("ABC");
-//            dept2.setDeptActual(5);
-        dept2.setDeptNeeded(3);
-        depts.add(dept2);
-
-        DeptNeeded dept3 = new DeptNeeded();
-        dept3.setDeptId(6);
-        dept3.setDeptCode("XYZ");
-//            dept3.setDeptActual(5);
-        dept3.setDeptNeeded(2);
-        depts.add(dept3);
-
-        form1.setDeptNeeds(depts);
-
-        ArrayList<RetrievalForm> forms = new ArrayList<>();
-        forms.add(form1);
-
-        updateWithDefaultValues(forms);
-
-    }*/
-
     private void updateWithDefaultValues(ArrayList<RetrievalForm> retrievalForms1) {
 
         for(int i=0; i<retrievalForms1.size(); i++) {
             RetrievalForm form = retrievalForms1.get(i);
-//            int needed = form.getTotalNeeded();
-//            int actual = form.getTotalRetrieved();
 
             int rem = form.getTotalRetrieved();
             for(int j=0; j<form.getDeptNeeds().size(); j++) {

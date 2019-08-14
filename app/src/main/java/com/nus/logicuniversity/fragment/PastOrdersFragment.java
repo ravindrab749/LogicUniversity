@@ -35,22 +35,29 @@ public class PastOrdersFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView emptyView;
 
+    public PastOrdersFragment() {
+        orders = new ArrayList<>();
+    }
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_order_list, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
         emptyView = view.findViewById(R.id.tv_empty);
 
         updateToolbarTitle();
-        orders = new ArrayList<>();
 
         // Set the adapter
         recyclerView = view.findViewById(R.id.rv_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new MyOrderRecyclerViewAdapter(getActivity(), orders, false, null));
         getPastOrders();
-        return view;
     }
 
     private void getPastOrders() {

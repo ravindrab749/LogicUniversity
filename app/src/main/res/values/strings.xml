@@ -14,13 +14,18 @@
     <string name="title_fragment_past_dis">Past Acknowledgements</string>
     <string name="title_fragment_change_rep">Representative</string>
     <string name="title_fragment_finger_print">Finger Print</string>
+    <string name="title_fragment_adj_voucher">Adjustment Voucher</string>
     <string name="title_fragment_past_orders">Past Orders</string>
     <string name="action_pending">Pending</string>
     <string name="action_past_orders">Past Orders</string>
     <string name="action_pending_dis">Pending Acknowledgements</string>
+    <string name="action_inventory_adj">Inventory Adjustment</string>
     <string name="action_past_dis">Past Acknowledgements</string>
     <string name="action_rep_change">Change Representative</string>
     <string name="action_delegate">Delegate</string>
+    <string name="title_fragment_inventory">Inventory</string>
+    <string name="title_fragment_pending_order_items">Pending Order Items</string>
+    <string name="title_fragment_retrieval_form">Retrieval Forms</string>
 
     <string name="title_role">Department Head</string>
 
@@ -56,6 +61,9 @@
     <string name="label_price">PRICE</string>
     <string name="text_price">$ %1$d</string>
     <string name="text_for_number">%1$d</string>
+    <string name="text_for_decimal_price">$ %1$.2f</string>
+
+    <string name="title_popup_adj_voucher">Adjustment Voucher</string>
 
     <string name="biometric_failed">Fingerprint not recognized</string>
 
@@ -90,5 +98,20 @@
     <string name="title_needed">Needed</string>
     <string name="title_actual">Actual</string>
     <string name="action_confirm">Confirm</string>
+    <string name="title_desc">Description</string>
 
+    <string name="title_details">Details</string>
+    <string name="label_item_num">Item Code</string>
+    <string name="label_item_cat">Category : </string>
+    <string name="label_item_qty_adj">Quantity Adjusted</string>
+    <string name="label_item_desc">Description : </string>
+    <string name="label_item_uom">Unit Of Measure : </string>
+    <string name="label_item_stock_last">Last Stock : </string>
+    <string name="label_item_stock_actual">Actual Stock</string>
+    <string name="label_item_up">Unit Price</string>
+    <string name="label_item_tp">Total Price</string>
+    <string name="label_item_reason">Reason</string>
+
+    <string name="action_stock_adj">Generate Adjustment Voucher</string>
+    <string name="action_stock_adj_submit">submit</string>
 </resources>

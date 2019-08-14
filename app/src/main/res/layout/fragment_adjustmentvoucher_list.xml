@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="@string/text_empty_records"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/parent_lin_lay"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--    <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:name="com.nus.logicuniversity.fragment.AdjustmentVoucherFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:context=".fragment.AdjustmentVoucherFragment"
+                tools:listitem="@layout/fragment_adjustmentvoucher" />-->
+
+        <Button
+            android:id="@+id/btnSubStkAdj"
+            android:background="@color/colorLoginButton"
+            android:textColor="@color/white"
+            android:text="@string/action_stock_adj_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</ScrollView>

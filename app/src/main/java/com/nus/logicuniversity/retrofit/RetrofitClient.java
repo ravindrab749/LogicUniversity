@@ -1,5 +1,4 @@
 package com.nus.logicuniversity.retrofit;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nus.logicuniversity.utility.JsonDateDeserializer;
@@ -14,7 +13,10 @@ public class RetrofitClient {
     private static RetrofitClient instance = null;
     private static Retrofit retrofit = null;
 //    private static final String BASE_URL = "http://10.0.2.2:61152/rest/";
-    private static final String BASE_URL = "http://192.168.0.107:61152/rest/";
+    private static final String BASE_URL = "http://192.168.0.102:61152/rest/";
+//    private static final String BASE_URL = "http://172.17.6.164:61152/rest/";
+//    private static final String BASE_URL = "http://192.168.1.83:61152/rest/";
+//    private static final String BASE_URL = "http://172.23.203.24:61152/rest/";
 
     private RetrofitClient() {
         Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDateDeserializer()).create();

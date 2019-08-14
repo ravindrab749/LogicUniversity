@@ -1,9 +1,13 @@
 package com.nus.logicuniversity.retrofit;
 
+import com.nus.logicuniversity.model.AdjustmentVoucher;
 import com.nus.logicuniversity.model.Delegate;
 import com.nus.logicuniversity.model.DisbursementDetailItem;
+import com.nus.logicuniversity.model.DisbursementDetailsResponse;
 import com.nus.logicuniversity.model.DisbursementsResponse;
+import com.nus.logicuniversity.model.InventoryListResponse;
 import com.nus.logicuniversity.model.LoginResponse;
+import com.nus.logicuniversity.model.PriceListResponse;
 import com.nus.logicuniversity.model.RepresentativesResponse;
 import com.nus.logicuniversity.model.RequisitionResponse;
 import com.nus.logicuniversity.model.RequisitionDetailResponse;
@@ -80,5 +84,14 @@ public interface Api {
     Call<DisbursementsResponse> getPastDisbursements(@Header(Util.AUTH_HEADER) String authHeader);
 
     @GET("representative/disbursement/{listId}")
-    Call<String> getDisbursementDetails(@Header(Util.AUTH_HEADER) String authHeader, @Path("listId") long id);
+    Call<DisbursementDetailsResponse> getDisbursementDetails(@Header(Util.AUTH_HEADER) String authHeader, @Path("listId") long id);
+
+    @GET("stock_clerk/inventory/all")
+    Call<InventoryListResponse> getAllInventories(@Header(Util.AUTH_HEADER) String authHeader);
+
+    @POST("stock_clerk/inventory/price_list")
+    Call<PriceListResponse> getInventoryPriceLists(@Header(Util.AUTH_HEADER) String authHeader, @Body ArrayList<Long> itemIds);
+
+    @POST("stock_clerk/inventory/adjustment")
+    Call<String> generateInventoryAdjustment(@Header(Util.AUTH_HEADER) String authHeader, @Body ArrayList<AdjustmentVoucher> adjVouchers);
 }

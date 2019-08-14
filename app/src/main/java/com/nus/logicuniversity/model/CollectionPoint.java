@@ -11,7 +11,7 @@ public class CollectionPoint {
     private String name;
 
     @SerializedName("Time")
-    private String time;
+    private Object time;
 
     public long getPlacedId() {
         return placedId;
@@ -29,11 +29,11 @@ public class CollectionPoint {
         this.name = name;
     }
 
-    public String getTime() {
+    public Object getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Object time) {
         this.time = time;
     }
 }

@@ -16,6 +16,9 @@ public class Inventory {
     @SerializedName("StockLevel")
     private int stockLevel;
 
+    @SerializedName("ActualStock")
+    private int actualStock;
+
     @SerializedName("ReorderLevel")
     private int reorderLevel;
 
@@ -33,6 +36,9 @@ public class Inventory {
 
     @SerializedName("ImageUrl")
     private String imageUrl;
+
+    @SerializedName("ItemSuppliersDetails")
+    private PriceList itemSuppliersDetails;
 
     public long getItemId() {
         return itemId;
@@ -112,5 +118,21 @@ public class Inventory {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getActualStock() {
+        return actualStock;
+    }
+
+    public void setActualStock(int actualStock) {
+        this.actualStock = actualStock;
+    }
+
+    public PriceList getItemSuppliersDetails() {
+        return itemSuppliersDetails;
+    }
+
+    public void setItemSuppliersDetails(PriceList itemSuppliersDetails) {
+        this.itemSuppliersDetails = itemSuppliersDetails;
     }
 }

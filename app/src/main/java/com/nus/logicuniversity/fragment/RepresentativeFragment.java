@@ -38,14 +38,18 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        updateToolbarTitle();
         View view = inflater.inflate(R.layout.fragment_representative, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        updateToolbarTitle();
         repNameTextView = view.findViewById(R.id.tv_rep_name);
         getRepresentatives();
         changeBtn = view.findViewById(R.id.btn_change);
         changeBtn.setOnClickListener(this);
         changeBtn.setClickable(false);
-        return view;
     }
 
     private void updateToolbarTitle() {
@@ -63,7 +67,6 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         builder.setTitle(getString(R.string.title_select_rep));
         final ArrayList<Employee> list = getFilteredReps();
-//        final ArrayList<Employee> list = repRes.getRepList();
 
         RepPopupAdapter adapter = new RepPopupAdapter(getActivity(), R.layout.popup_rep, list);
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
@@ -74,7 +77,6 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
             }
         });
 
-//        builder.setCancelable(false);
         builder.create().show();
 
     }
