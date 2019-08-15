@@ -219,7 +219,7 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
     private void showDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-        builder.setTitle(getString(R.string.title_select_rep));
+        builder.setTitle(getString(R.string.title_select_emp));
         final ArrayList<Employee> list = res.getRepList();
 
         RepPopupAdapter adapter = new RepPopupAdapter(getActivity(), R.layout.popup_rep, list);

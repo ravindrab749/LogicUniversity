@@ -58,21 +58,30 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        changeBtn.setClickable(false);
         showDialog();
     }
 
     private void showDialog() {
 
+        if(repRes == null || repRes.getRepList() == null || repRes.getRepList().isEmpty()) {
+            Util.showToast(getActivity(), "No Representatives Found!");
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         builder.setTitle(getString(R.string.title_select_rep));
         final ArrayList<Employee> list = getFilteredReps();
+        if(list.isEmpty()) {
+            Util.showToast(getActivity(), "No Representatives Found!");
+            return;
+        }
 
         RepPopupAdapter adapter = new RepPopupAdapter(getActivity(), R.layout.popup_rep, list);
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                changeBtn.setClickable(false);
                 changeRep(list.get(i));
             }
         });
@@ -82,7 +91,7 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
     }
 
     private ArrayList<Employee> getFilteredReps() {
-        ArrayList<Employee> emps = repRes.getRepList();
+        ArrayList<Employee> emps = new ArrayList<>(repRes.getRepList());
         for(int i=0; i<emps.size(); i++) {
             if(repRes.getCurRep().getEmpId() == emps.get(i).getEmpId()) {
                 emps.remove(emps.get(i));
@@ -107,11 +116,13 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
                     repRes.setCurRep(e);
                 }
                 Util.showProgressBar(getActivity(), false);
+                changeBtn.setClickable(true);
             }
 
             @Override
             public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
                 Util.showProgressBar(getActivity(), false);
+                changeBtn.setClickable(true);
             }
         });
     }
