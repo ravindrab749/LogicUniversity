@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity
                 showStockClerkMenus();
                 goToStockClerkHomeFragment();
                 break;
-            case EMPLOYEE:
             case REPRESENTATIVE:
                 showRepNavMenus();
                 goToRepresentativeHomeFragment();
