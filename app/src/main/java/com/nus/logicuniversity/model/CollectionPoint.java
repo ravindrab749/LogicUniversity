@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CollectionPoint {
 
-    @SerializedName("PlaceId")
+    @SerializedName("PlacedId")
     private long placedId;
 
     @SerializedName("Name")

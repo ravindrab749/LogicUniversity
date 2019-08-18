@@ -17,8 +17,9 @@
     <string name="title_fragment_adj_voucher">Adjustment Voucher</string>
     <string name="title_fragment_past_orders">Past Orders</string>
     <string name="action_pending">Pending</string>
+    <string name="action_pending_dis">Pending Disbursements</string>
     <string name="action_past_orders">Past Orders</string>
-    <string name="action_pending_dis">Pending Acknowledgements</string>
+    <string name="action_pending_ack">Pending Acknowledgements</string>
     <string name="action_inventory_adj">Inventory Adjustment</string>
     <string name="action_past_dis">Past Acknowledgements</string>
     <string name="action_rep_change">Change Representative</string>
@@ -37,16 +38,20 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
+    <string name="action_filter">Filter</string>
 
     <string name="menu_home">Home</string>
     <string name="title_select_rep">Select Representative</string>
     <string name="title_select_emp">Select Employee</string>
+    <string name="title_select_cp">Select Collection Point</string>
     <string name="title_menu_security">Security</string>
     <string name="menu_fingerprint">Fingerprint</string>
     <string name="title_fingerprint">Fingerprint Login</string>
     <string name="title_sub_fingerprint">Easy login with fingerprint</string>
 
+    <string name="title_frag_ret_form">Retrieval Form</string>
     <string name="title_frag_disbursement">Disbursement</string>
+    <string name="title_frag_disbursement_os">Pending Disbursements</string>
     <string name="title_order_id">Order ID %1$d</string>
     <string name="text_total">Total: $ %1$d</string>
     <string name="label_rep">Representative :</string>
@@ -98,8 +103,12 @@
     <string name="title_needed">Needed</string>
     <string name="title_actual">Actual</string>
     <string name="action_confirm">Confirm</string>
+    <string name="title_item_desc">Item Description</string>
+    <string name="title_dis_qty">Disburse Quantity</string>
     <string name="title_desc">Description</string>
+    <string name="action_generate_update">Update</string>
 
+    <string name="label_coll_pnt">Collection Point : </string>
     <string name="title_details">Details</string>
     <string name="label_item_num">Item Code</string>
     <string name="label_item_cat">Category : </string>

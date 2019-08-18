@@ -13,6 +13,9 @@ public class Department {
     @SerializedName("Name")
     private String name;
 
+    @SerializedName("DeptName")
+    private String deptName;
+
     @SerializedName("Contact")
     private String contact;
 
@@ -90,5 +93,13 @@ public class Department {
 
     public void setRepresentative(Employee representative) {
         this.representative = representative;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }

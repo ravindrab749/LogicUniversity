@@ -72,7 +72,7 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
     }
 
     private void updateToolbarTitle() {
-        Util.updateTitle(getString(R.string.title_frag_disbursement), Objects.requireNonNull(getActivity()));
+        Util.updateTitle(getString(R.string.title_frag_ret_form), Objects.requireNonNull(getActivity()));
     }
 
     @Override
@@ -243,9 +243,11 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
             public void onResponse(@NotNull Call<RetrievalResponse> call, @NotNull Response<RetrievalResponse> response) {
                 RetrievalResponse res = response.body();
                 assert res != null;
-                updateWithDefaultValues(res.getRetrievalForms());
+                if(!res.isPending())
+                    updateWithDefaultValues(res.getRetrievalForms());
                 Util.showProgressBar(getActivity(), false);
-                enableGenBtn(true);
+                enableGenBtn(!res.isPending());
+                showEmptyView(res.isPending());
             }
 
             @Override

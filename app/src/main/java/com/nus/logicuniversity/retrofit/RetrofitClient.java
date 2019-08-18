@@ -13,9 +13,9 @@ public class RetrofitClient {
     private static RetrofitClient instance = null;
     private static Retrofit retrofit = null;
 //    private static final String BASE_URL = "http://10.0.2.2:61152/rest/";
-//    private static final String BASE_URL = "http://192.168.0.102:61152/rest/";
-    private static final String BASE_URL = "http://172.17.7.228:61152/rest/";
-//    private static final String BASE_URL = "http://192.168.1.83:61152/rest/";
+    private static final String BASE_URL = "http://192.168.0.102:61152/rest/";
+//    private static final String BASE_URL = "http://172.17.7.228:61152/rest/";
+//    private static final String BASE_URL = "http://192.168.43.122:61152/rest/";
 
     private RetrofitClient() {
         Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDateDeserializer()).create();

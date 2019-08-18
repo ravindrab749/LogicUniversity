@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.fragment.DelegateFragment;
 import com.nus.logicuniversity.fragment.InventoryFragment;
+import com.nus.logicuniversity.fragment.OutstandingDisbursementFragment;
 import com.nus.logicuniversity.fragment.PastDisbursementFragment;
 import com.nus.logicuniversity.fragment.PendingDisbursementFragment;
 import com.nus.logicuniversity.fragment.FingerprintFragment;
@@ -142,12 +143,16 @@ public class MainActivity extends AppCompatActivity
         replaceFragment(new PastDisbursementFragment());
     }
 
+    private void goToPendingDisbursementsFragment() {
+        replaceFragment(new OutstandingDisbursementFragment());
+    }
+
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
     }
 
     private void checkForUserRoleHome() {
-        String role = Util.getValueFromSharedPreferences("role", MainActivity.this);
+        String role = Util.getValueFromSharedPreferences("displayRole", MainActivity.this);
         switch (Roles.valueOf(role)) {
             case HEAD:
                 showDeptHeadNavMenus();
@@ -237,6 +242,8 @@ public class MainActivity extends AppCompatActivity
             goToPastDisbursementsFragment();
         } else if(id == R.id.nav_inventory_adj) {
             goToInventoryAdjFragment();
+        } else if(id == R.id.nav_pending_dis) {
+            goToPendingDisbursementsFragment();
         }
 
         item.setChecked(true);
@@ -259,6 +266,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showStockClerkMenus() {
         navigationView.getMenu().findItem(R.id.nav_inventory_adj).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_pending_dis).setVisible(true);
     }
 
     @TargetApi(Build.VERSION_CODES.N)

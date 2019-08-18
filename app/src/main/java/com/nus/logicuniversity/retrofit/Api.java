@@ -1,7 +1,9 @@
 package com.nus.logicuniversity.retrofit;
 
 import com.nus.logicuniversity.model.AdjustmentVoucher;
+import com.nus.logicuniversity.model.CollectionPointListResponse;
 import com.nus.logicuniversity.model.Delegate;
+import com.nus.logicuniversity.model.DisbursementDTO;
 import com.nus.logicuniversity.model.DisbursementDetailItem;
 import com.nus.logicuniversity.model.DisbursementDetailsResponse;
 import com.nus.logicuniversity.model.DisbursementsResponse;
@@ -24,6 +26,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Api {
 
@@ -94,4 +97,16 @@ public interface Api {
 
     @POST("stock_clerk/inventory/adjustment")
     Call<String> generateInventoryAdjustment(@Header(Util.AUTH_HEADER) String authHeader, @Body ArrayList<AdjustmentVoucher> adjVouchers);
+
+    @GET("stock_clerk/collection_points")
+    Call<CollectionPointListResponse> getAllCollectionPoints(@Header(Util.AUTH_HEADER) String authHeader);
+
+    @GET("stock_clerk/disbursements/pending")
+    Call<DisbursementsResponse> getAllPendingDisbursements(@Header(Util.AUTH_HEADER) String authHeader, @Query("collectionPoint") long collectionPoint);
+
+    @POST("stock_clerk/disbursement/update")
+    Call<String> updateDisbursement(@Header(Util.AUTH_HEADER) String authHeader, @Body DisbursementDTO disbursementDTO);
+
+    @GET("stock_clerk/disbursement/{listId}")
+    Call<DisbursementDetailsResponse> getDisbursementDetailsToUpdate(@Header(Util.AUTH_HEADER) String authHeader, @Path("listId") long id);
 }
