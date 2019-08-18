@@ -112,11 +112,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void doLogin() {
 
-/*        if(true) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            return;
-        }*/
-
         EditText unEt = findViewById(R.id.id_username);
         EditText pwEt = findViewById(R.id.id_password);
         String username = unEt.getText().toString();
@@ -163,6 +158,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                     Employee emp = res.getEmp();
+                    if(emp == null) {
+                        Util.showToast(getApplicationContext(), "Missed information");
+                        return;
+                    }
                     if(!isInRole(emp.getEmpRole())) {
                         Util.showToast(getApplicationContext(), "Un-authorized");
                         return;

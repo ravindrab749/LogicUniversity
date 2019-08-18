@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkForUserRoleHome() {
-        String role = Util.getValueFromSharedPreferences("displayRole", MainActivity.this);
+        String role = Util.getValueFromSharedPreferences("role", MainActivity.this);
         switch (Roles.valueOf(role)) {
             case HEAD:
                 showDeptHeadNavMenus();
@@ -305,7 +305,6 @@ public class MainActivity extends AppCompatActivity
     private void goToLoginView() {
         Util.clearSharedPref(MainActivity.this);
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

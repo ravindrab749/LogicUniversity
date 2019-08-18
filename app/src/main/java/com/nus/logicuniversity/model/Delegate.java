@@ -1,27 +1,37 @@
 package com.nus.logicuniversity.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Delegate {
 
-    private Timestamp fromDate;
-    private Timestamp toDate;
+    @SerializedName("FromDate")
+    private Date fromDate;
+
+    @SerializedName("ToDate")
+    private Date toDate;
+
+    @SerializedName("Employee")
     private Employee employee;
+
+    @SerializedName("Department")
     private Department department;
 
-    public Timestamp getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Timestamp fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Timestamp getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(Timestamp toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 

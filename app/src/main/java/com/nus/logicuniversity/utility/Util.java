@@ -88,6 +88,7 @@ public class Util {
         SharedPreferences.Editor editor = getSharedPreferences(activity).edit();
         editor.putString("name", emp.getEmpName());
         editor.putString("username", emp.getUserName());
+        editor.putString("password", emp.getPassword());
         editor.putString("role", emp.getEmpRole());
         editor.putString("displayRole", emp.getEmpDisplayRole());
         editor.apply();

@@ -97,7 +97,14 @@ public class UpdateDisbursementDetailsFragment extends Fragment implements View.
             perItems.add(perItem);
         }
 
+        if(perItems.isEmpty()) {
+            enableUpdBtn(true);
+            Util.showToast(getActivity(), "No change found!");
+            return;
+        }
+
         if(isNeg) {
+            enableUpdBtn(true);
             perItems.clear();
             return;
         }
@@ -149,6 +156,7 @@ public class UpdateDisbursementDetailsFragment extends Fragment implements View.
             public void onResponse(@NotNull Call<DisbursementDetailsResponse> call, @NotNull Response<DisbursementDetailsResponse> response) {
                 DisbursementDetailsResponse res = response.body();
                 assert res != null;
+                assert res.getDisbursementDetails() != null;
                 Util.showProgressBar(getActivity(), false);
                 enableUpdBtn(true);
                 disbursementDetailItems.clear();
@@ -188,6 +196,7 @@ public class UpdateDisbursementDetailsFragment extends Fragment implements View.
                     Util.showToast(getActivity(), msg);
                     Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.frame, new OutstandingDisbursementFragment()).commit();
                 }
+                enableUpdBtn(true);
             }
 
             @Override

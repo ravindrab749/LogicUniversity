@@ -31,6 +31,9 @@ public class Department {
     @SerializedName("Representative")
     private Employee representative;
 
+    @SerializedName("CollectionPoint")
+    private CollectionPoint collectionPoint;
+
     public long getDeptId() {
         return deptId;
     }
@@ -101,5 +104,13 @@ public class Department {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public CollectionPoint getCollectionPoint() {
+        return collectionPoint;
+    }
+
+    public void setCollectionPoint(CollectionPoint collectionPoint) {
+        this.collectionPoint = collectionPoint;
     }
 }

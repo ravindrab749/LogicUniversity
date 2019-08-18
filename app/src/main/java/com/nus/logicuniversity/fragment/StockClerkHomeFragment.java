@@ -115,12 +115,19 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
         ArrayList<DisbursementDetailItem> items = new ArrayList<>();
         for(RetrievalForm form : retrievalForms) {
             for(DeptNeeded dept : form.getDeptNeeds()) {
+                if(dept.getDeptActual() == 0) continue;
                 DisbursementDetailItem item = new DisbursementDetailItem();
                 item.setItemId(form.getItemId());
                 item.setDeptId(dept.getDeptId());
                 item.setQuantity(dept.getDeptActual());
                 items.add(item);
             }
+        }
+
+        if(items.isEmpty()) {
+            enableGenBtn(true);
+            Util.showToast(getActivity(), "Cannot generate with zero quantites");
+            return;
         }
 
         generateDisbursement(items);
@@ -243,10 +250,11 @@ public class StockClerkHomeFragment extends Fragment implements OnRetrievalFormL
             public void onResponse(@NotNull Call<RetrievalResponse> call, @NotNull Response<RetrievalResponse> response) {
                 RetrievalResponse res = response.body();
                 assert res != null;
+                assert res.getRetrievalForms() != null;
                 if(!res.isPending())
                     updateWithDefaultValues(res.getRetrievalForms());
                 Util.showProgressBar(getActivity(), false);
-                enableGenBtn(!res.isPending());
+                enableGenBtn(true);
                 showEmptyView(res.isPending());
             }
 

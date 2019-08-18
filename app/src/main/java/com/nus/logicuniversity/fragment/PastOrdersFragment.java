@@ -72,7 +72,7 @@ public class PastOrdersFragment extends Fragment {
             public void onResponse(@NotNull Call<RequisitionResponse> call, @NotNull Response<RequisitionResponse> response) {
                 RequisitionResponse res = response.body();
                 orders.clear();
-                if(res != null) {
+                if(res != null && res.getReqList() != null) {
                     orders.addAll(res.getReqList());
                 }
                 Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();

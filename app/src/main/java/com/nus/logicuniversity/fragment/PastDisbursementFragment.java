@@ -74,7 +74,7 @@ public class PastDisbursementFragment extends Fragment {
             public void onResponse(@NotNull Call<DisbursementsResponse> call, @NotNull Response<DisbursementsResponse> response) {
                 DisbursementsResponse res = response.body();
                 disbursements.clear();
-                if(res != null) {
+                if(res != null && res.getDisbursementList() != null) {
                     disbursements.addAll(res.getDisbursementList());
                     Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
                 }

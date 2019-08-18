@@ -92,6 +92,10 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
 
     private ArrayList<Employee> getFilteredReps() {
         ArrayList<Employee> emps = new ArrayList<>(repRes.getRepList());
+        if(repRes.getCurRep() == null) {
+            return emps;
+        }
+
         for(int i=0; i<emps.size(); i++) {
             if(repRes.getCurRep().getEmpId() == emps.get(i).getEmpId()) {
                 emps.remove(emps.get(i));
@@ -140,9 +144,10 @@ public class RepresentativeFragment extends Fragment implements View.OnClickList
                 repRes = res;
                 assert res != null;
                 Employee crntRep = res.getCurRep();
-                repNameTextView.setText(crntRep.getEmpName());
-                Util.showProgressBar(getActivity(), false);
+                if(crntRep != null)
+                    repNameTextView.setText(crntRep.getEmpName());
                 changeBtn.setClickable(true);
+                Util.showProgressBar(getActivity(), false);
             }
 
             @Override

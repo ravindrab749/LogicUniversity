@@ -49,6 +49,7 @@
     <string name="title_fingerprint">Fingerprint Login</string>
     <string name="title_sub_fingerprint">Easy login with fingerprint</string>
 
+    <string name="delegate_msg">You cannot delegate again!</string>
     <string name="title_frag_ret_form">Retrieval Form</string>
     <string name="title_frag_disbursement">Disbursement</string>
     <string name="title_frag_disbursement_os">Pending Disbursements</string>

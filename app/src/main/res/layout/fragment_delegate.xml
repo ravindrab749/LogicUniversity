@@ -8,76 +8,98 @@
     android:orientation="vertical"
     tools:context=".fragment.DelegateFragment">
 
-    <LinearLayout
-        android:id="@+id/linlay_date"
-        android:baselineAligned="false"
+    <TextView
+        android:id="@+id/tv_delegate"
+        android:visibility="gone"
+        android:text="@string/delegate_msg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_from_date"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/label_from_date"
-                tools:ignore="Autofill" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_to_date"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/label_to_date"
-                tools:ignore="Autofill" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_emp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linlay_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/et_emp_name"
-            android:drawableEnd="@drawable/ic_spinner_expand"
-            android:hint="@string/label_emp"
-            android:inputType="text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="Autofill" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/btn_delegate"
-        app:layout_constraintTop_toBottomOf="@id/til_emp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/white"
-        android:background="@color/colorLoginButton"
-        android:text="@string/action_delegate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/lin_lay_delegate"
+        android:baselineAligned="false"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linlay_date"
+            android:baselineAligned="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_from_date"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_from_date"
+                    tools:ignore="Autofill" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_to_date"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_to_date"
+                    tools:ignore="Autofill" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_emp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linlay_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_emp_name"
+                android:drawableEnd="@drawable/ic_spinner_expand"
+                android:hint="@string/label_emp"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="Autofill" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_delegate"
+            app:layout_constraintTop_toBottomOf="@id/til_emp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/white"
+            android:background="@color/colorLoginButton"
+            android:text="@string/action_delegate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.nus.logicuniversity.R;
 import com.nus.logicuniversity.adapter.RepPopupAdapter;
 import com.nus.logicuniversity.model.Delegate;
+import com.nus.logicuniversity.model.DelegatedInfoResponse;
 import com.nus.logicuniversity.model.Employee;
 import com.nus.logicuniversity.model.RepresentativesResponse;
 import com.nus.logicuniversity.retrofit.Api;
@@ -50,6 +54,8 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
     private EditText etFromDate;
     private EditText etToDate;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    private LinearLayout main;
+    private TextView delegateInfoView;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -63,7 +69,10 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
     @SuppressLint("ClickableViewAccessibility")
     private void initView(View view) {
         updateToolbarTitle();
+        getDelegatedAuthToUserInfo();
         getEmployees();
+        delegateInfoView = view.findViewById(R.id.tv_delegate);
+        main = view.findViewById(R.id.lin_lay_delegate);
         etFromDate = view.findViewById(R.id.et_from_date);
         etFromDate.setKeyListener(null);
         etToDate = view.findViewById(R.id.et_to_date);
@@ -185,6 +194,8 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
                 if("Success".equalsIgnoreCase(msg)) {
                     Util.showToast(getActivity(), "Success");
                     Util.showProgressBar(getActivity(), false);
+                    showFormView(false);
+                    showDelegateInfoView(true);
                 }
             }
 
@@ -193,6 +204,41 @@ public class DelegateFragment extends Fragment implements View.OnClickListener {
                 Util.showProgressBar(getActivity(), false);
             }
         });
+    }
+
+    private void showFormView(boolean show) {
+        main.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void showDelegateInfoView(boolean show) {
+        delegateInfoView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void getDelegatedAuthToUserInfo() {
+
+        String header = Util.getHeaderValueFromSharedPreferences(getActivity());
+
+        Util.showProgressBar(getActivity(), true);
+
+        Api api = RetrofitClient.getInstance().getApi();
+
+        api.authDelegateInfo(header).enqueue(new Callback<DelegatedInfoResponse>() {
+            @Override
+            public void onResponse(Call<DelegatedInfoResponse> call, Response<DelegatedInfoResponse> response) {
+                DelegatedInfoResponse delegateInfo = response.body();
+                assert delegateInfo != null;
+                showDelegateInfoView(delegateInfo.isDelegated());
+                showFormView(!delegateInfo.isDelegated());
+            }
+
+            @Override
+            public void onFailure(Call<DelegatedInfoResponse> call, Throwable t) {
+                Log.d("Exception :::: ", t.getMessage(), t);
+                showFormView(false);
+                showDelegateInfoView(true);
+            }
+        });
+
     }
 
     private void getEmployees() {

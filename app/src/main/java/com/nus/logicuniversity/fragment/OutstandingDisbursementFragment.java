@@ -124,6 +124,7 @@ public class OutstandingDisbursementFragment extends Fragment implements View.On
                 CollectionPointListResponse res = response.body();
                 collectionPoints.clear();
                 assert res != null;
+                assert res.getCollectionPoints() != null;
                 collectionPoints.addAll(res.getCollectionPoints());
                 CollectionPoint defaultCp = new CollectionPoint();
                 defaultCp.setName("All");
@@ -155,6 +156,7 @@ public class OutstandingDisbursementFragment extends Fragment implements View.On
                 DisbursementsResponse res = response.body();
                 assert res != null;
                 depts.clear();
+                assert res.getDisbursementList() != null;
                 depts.addAll(res.getDisbursementList());
                 Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
                 currentPlaceId = collectionPoint;

@@ -7,6 +7,9 @@ public class Employee {
     @SerializedName("EmpId")
     private long empId;
 
+    @SerializedName("DeptId")
+    private long deptId;
+
     @SerializedName("EmpName")
     private String empName;
 
@@ -21,6 +24,9 @@ public class Employee {
 
     @SerializedName("Password")
     private String password;
+
+    @SerializedName("Email")
+    private String email;
 
     @SerializedName("Department")
     private Department department;

@@ -3,6 +3,7 @@ package com.nus.logicuniversity.retrofit;
 import com.nus.logicuniversity.model.AdjustmentVoucher;
 import com.nus.logicuniversity.model.CollectionPointListResponse;
 import com.nus.logicuniversity.model.Delegate;
+import com.nus.logicuniversity.model.DelegatedInfoResponse;
 import com.nus.logicuniversity.model.DisbursementDTO;
 import com.nus.logicuniversity.model.DisbursementDetailItem;
 import com.nus.logicuniversity.model.DisbursementDetailsResponse;
@@ -66,7 +67,7 @@ public interface Api {
     Call<String> authDelegate(@Header(Util.AUTH_HEADER) String authHeader, @Body Delegate delegate);
 
     @GET("dept_head/auth/delegate/info")
-    Call<Delegate> authDelegateInfo(@Header(Util.AUTH_HEADER) String authHeader);
+    Call<DelegatedInfoResponse> authDelegateInfo(@Header(Util.AUTH_HEADER) String authHeader);
 
     @GET("stock_clerk/retrievals")
     Call<RetrievalResponse> getRetrievalForms(@Header(Util.AUTH_HEADER) String authHeader);
